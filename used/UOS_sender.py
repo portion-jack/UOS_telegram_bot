@@ -1,5 +1,5 @@
 import telegram as tel
-from UOS_Handler import *
+from UOS_notice import *
 from datetime import date
 
 # telegram_bot and id setting
