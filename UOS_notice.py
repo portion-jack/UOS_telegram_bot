@@ -1,10 +1,8 @@
-# modules #
+# 시립대 공지 크롤링
+# modules
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from datetime import date
-
-from telegram.ext import Updater
-from telegram.ext import CommandHandler
 
 
 def clean_text(text):
@@ -64,7 +62,7 @@ def get_scholarship_notice(url):
     return results
 
 
-# 일반공
+# 일반공지
 general_notice = "https://www.uos.ac.kr/korNotice/list.do?list_id=FA1"
 notice_1 = get_general_notice(general_notice)
 
@@ -80,9 +78,17 @@ notice_1.insert(0, ",---일반 공지사항---")
 notice_2.insert(0, ",---학사 공지사항---")
 notice_3.insert(0, ",---장학 공지사항---")
 
+
 notice = notice_1 + notice_2 + notice_3
 notice.insert(0, "🔥{}의 공지!🔥".format(date.today()))
 notice = str(notice).replace(',', '\n').replace("'", "")
 
-def bring_notice():
+
+def notice_all():
     return notice
+
+
+def notice_general():
+    notice_1.insert(0, "🔥{}의 일반공지!🔥".format(date.today()))
+    notice_1 = str(notice_1).replace(',', '\n').replace("'", "")
+    return notice_1
