@@ -28,8 +28,3 @@ notice_3.insert(0, ",---장학 공지사항---")
 notice = notice_1 + notice_2 + notice_3
 notice.insert(0, "🔥{}의 공지!🔥".format(date.today()))
 notice = str(notice).replace(',', '\n').replace("'", "")
-
-
-
-bot.sendMessage(chat_id=chat_id,
-                text=notice[1:-1])
