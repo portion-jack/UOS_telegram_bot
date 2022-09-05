@@ -14,7 +14,10 @@ def clean_text(text):
     return text
 
 
-def get_general_notice(url):
+general_notice = "https://www.uos.ac.kr/korNotice/list.do?list_id=FA1"
+
+
+def get_general_notice(url=general_notice):
     html = urlopen(url)
     bsobject = BeautifulSoup(html, 'html.parser')
     soup = bsobject.find('ul', class_='brd-lstp1')
@@ -29,10 +32,14 @@ def get_general_notice(url):
         except AttributeError:
             pass
     results.sort()
+    results.insert(0, ",---일반 공지사항---")
     return results
 
 
-def get_academic_notice(url):
+academic_notice = "https://www.uos.ac.kr/korNotice/list.do?list_id=FA2"
+
+
+def get_academic_notice(url=academic_notice):
     html = urlopen(url)
     bsobject = BeautifulSoup(html, 'html.parser')
     soup = bsobject.find('ul', class_='brd-lstp1')
@@ -47,48 +54,36 @@ def get_academic_notice(url):
         except AttributeError:
             pass
     results.sort()
+    results.insert(0, ",---학사 공지사항---")
     return results
 
 
-def get_scholarship_notice(url):
+scholarship_notice = "https://scholarship.uos.ac.kr/scholarship/notice/notice/list.do?brdBbsseq=1"
+
+
+def get_scholarship_notice(url=scholarship_notice):
     html = urlopen(url)
     bsobject = BeautifulSoup(html, 'html.parser')
     soup = bsobject.find('tbody')
     main = soup.find_all('td', class_='left_L fontBold')
     results = list()
-    for notice in main:
-        results.append(clean_text(notice.get_text()))
+    for box in main:
+        results.append(clean_text(box.get_text()))
     results.sort()
+    results.insert(0, ",---장학 공지사항---")
     return results
 
 
-# 일반공지
-general_notice = "https://www.uos.ac.kr/korNotice/list.do?list_id=FA1"
-notice_1 = get_general_notice(general_notice)
+# # 일반공지
+# notice_1 = get_general_notice()
+# # 학사공지
+# notice_2 = get_academic_notice()
+# # 장학공지
+# notice_3 = get_scholarship_notice()
+# # 공지 총합
+# notice_tot = notice_1 + notice_2 + notice_3
 
-# 학사공지
-academic_notice = "https://www.uos.ac.kr/korNotice/list.do?list_id=FA2"
-notice_2 = get_academic_notice(academic_notice)
-
-# 장학공지
-schoolarship_notice = "https://scholarship.uos.ac.kr/scholarship/notice/notice/list.do?brdBbsseq=1"
-notice_3 = get_scholarship_notice(schoolarship_notice)
-
-notice_1.insert(0, ",---일반 공지사항---")
-notice_2.insert(0, ",---학사 공지사항---")
-notice_3.insert(0, ",---장학 공지사항---")
-
-
-notice = notice_1 + notice_2 + notice_3
-notice.insert(0, "🔥{}의 공지!🔥".format(date.today()))
-notice = str(notice).replace(',', '\n').replace("'", "")
-
-
-def notice_all():
+def format_notice(notice):
+    notice.insert(0, "🔥{}의 공지!🔥".format(date.today()))
+    notice = str(notice).replace(',', '\n').replace("'", "")
     return notice
-
-
-def notice_general():
-    notice_1.insert(0, "🔥{}의 일반공지!🔥".format(date.today()))
-    notice_1 = str(notice_1).replace(',', '\n').replace("'", "")
-    return notice_1
