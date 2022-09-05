@@ -73,16 +73,6 @@ def get_scholarship_notice(url=scholarship_notice):
     results.insert(0, ",---장학 공지사항---")
     return results
 
-
-# # 일반공지
-# notice_1 = get_general_notice()
-# # 학사공지
-# notice_2 = get_academic_notice()
-# # 장학공지
-# notice_3 = get_scholarship_notice()
-# # 공지 총합
-# notice_tot = notice_1 + notice_2 + notice_3
-
 def format_notice(notice):
     notice.insert(0, "🔥{}의 공지!🔥".format(date.today()))
     notice = str(notice).replace(',', '\n').replace("'", "")
