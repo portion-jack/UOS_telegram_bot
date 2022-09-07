@@ -17,8 +17,8 @@ total_notice = general_notice + academic_notice + scholarship_notice
 from uos.uos_food import *
 lunch,dinner = uos_food()
 
-from weather.weather import *
-get_wether()
+# from weather.weather import *
+# get_wether()
 
 # bot_response by command
 
@@ -67,9 +67,9 @@ def uos_notice_scholarship(update,context):
     return None
 
 # 2.2 weather
-def uos_weather(update,context):
-    context.bot.send_photo(chat_id=update.effective_chat.id,
-                           photo=open('weather.png','rb'))
+# def uos_weather(update,context):
+#     context.bot.send_photo(chat_id=update.effective_chat.id,
+#                            photo=open('weather.png','rb'))
 # 2.2 map
 def uos_map(update,context):
     context.bot.send_photo(chat_id=update.effective_chat.id,
@@ -100,7 +100,7 @@ notice_general_handler = CommandHandler('notice_general',uos_notice_general)
 notice_academic_handler = CommandHandler('notice_academic',uos_notice_academic)
 notice_scholarship_handler = CommandHandler('notice_scholarship',uos_notice_scholarship)
 
-weather_handler = CommandHandler('weather',uos_weather)
+# weather_handler = CommandHandler('weather',uos_weather)
 
 lunch_handler = CommandHandler('lunch',uos_lunch)
 dinner_handler = CommandHandler('dinner',uos_dinner)
@@ -116,7 +116,7 @@ dispatcher.add_handler(notice_general_handler)
 dispatcher.add_handler(notice_academic_handler)
 dispatcher.add_handler(notice_scholarship_handler)
 
-dispatcher.add_handler(weather_handler)
+# dispatcher.add_handler(weather_handler)
 
 dispatcher.add_handler(lunch_handler)
 dispatcher.add_handler(dinner_handler)
